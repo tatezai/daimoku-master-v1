@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>ダイモク・マスター Ver17.4</title>
+  <title>ダイモク・マスター Ver19.0</title>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <!-- CSSファイルを読み込む -->
@@ -171,7 +171,142 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
 .btn-reset { width: 100%; padding: 12px; font-size: 14px; font-weight: bold; border-radius: 10px; cursor: pointer; background: #FFEBEE; color: #D32F2F; border: 1px solid #EF9A9A; margin-top: 8px; }
 .btn-reset:active { background: #FFCDD2; }
 
-</style>
+
+/* ===== 【V19追加】唱題のあゆみ用追加スタイル ===== */
+.daimoku-bar {
+  grid-column: span 3;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  margin-top: 4px;
+  box-shadow: var(--elevation-1);
+  transition: background-color 0.5s ease;
+}
+/* テーマカラー連動用 */
+.app-container.theme-default .daimoku-bar { background: var(--md-sys-color-primary); }
+.app-container.theme-pink .daimoku-bar { background: #E91E63; }
+.app-container.theme-green .daimoku-bar { background: #4CAF50; }
+.app-container.theme-purple .daimoku-bar { background: #9C27B0; }
+
+.daimoku-bar-title {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+.daimoku-bar-btn {
+  background: transparent;
+  border: 1.5px solid white;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: background 0.2s;
+}
+.daimoku-bar-btn:active {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.history-weeks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.history-week-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+  border: 1px solid #efe8df;
+  display: flex;
+  flex-direction: column;
+}
+.history-card-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: var(--md-sys-color-primary);
+  margin-bottom: 8px;
+  text-align: center;
+}
+.history-day-list {
+  font-size: 12px;
+  color: #52443C;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.history-day-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #efe8df;
+  padding-bottom: 2px;
+}
+.history-day-item strong {
+  font-weight: 700;
+}
+.history-card-total {
+  font-size: 12px;
+  font-weight: bold;
+  color: #52443C;
+  border-top: 1px solid #857368;
+  margin-top: 10px;
+  padding-top: 6px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.history-bold-num {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d35400;
+}
+.history-summary-grid {
+  display: flex;
+  gap: 8px;
+}
+.history-summary-card {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+  border: 1px solid #efe8df;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.history-summary-label {
+  font-size: 11px;
+  font-weight: bold;
+  color: #52443C;
+  margin-bottom: 4px;
+}
+@media (max-width: 380px) {
+  .history-summary-grid {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .history-summary-card {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 16px;
+  }
+  .history-summary-label {
+    margin-bottom: 0;
+  }
+}
+
+  </style>
 </head>
 <body>
 
@@ -299,7 +434,17 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
       <button class="btn-action" onclick="handleAction('stroke')"><span class="material-symbols-outlined">front_hand</span>なでる</button>
       <button class="btn-action" onclick="handleAction('play')"><span class="material-symbols-outlined">toys</span>遊ぶ</button>
       <button class="btn-action" onclick="handleAction('snack')"><span class="material-symbols-outlined">cookie</span>おやつ</button>
-      <button class="btn-record" onclick="openDialog()"><span class="material-symbols-outlined">edit_square</span>ダイモクを記録する</button>
+      
+      <!-- 【V19レイアウト変更】画像通りのダイモク管理バー -->
+      <div class="daimoku-bar">
+        <span class="daimoku-bar-title">ダイモク</span>
+        <button class="daimoku-bar-btn" onclick="openDialog()">
+          <span class="material-symbols-outlined" style="font-size:18px;">edit_square</span>記録
+        </button>
+        <button class="daimoku-bar-btn" onclick="openHistoryModal()">
+          記録を見る
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -318,11 +463,8 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
     </div>
     <input type="number" class="dialog-input" id="daimoku-input" placeholder="回数を入力" min="1">
     <div class="dialog-actions">
-　　　<button class="btn-flat" style="background:#E0E0E0;" onclick="closeDialog()">やめる</button>
-　　　<button class="btn-flat"
-        style="background:#A65D00; color:white;"
-        onclick="submitRecord()"> 保存　</button>
-      
+   <button class="btn-flat" style="background:#E0E0E0;" onclick="closeDialog()">やめる</button>
+   <button class="btn-flat" style="background:#A65D00; color:white;" onclick="submitRecord()"> 保存 </button>
     </div>
   </div>
 </div>
@@ -366,8 +508,50 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
   </div>
 </div>
 
+<!-- 【V19追加】唱題のあゆみ モーダル -->
+<div class="dialog-overlay" id="history-dialog">
+  <div class="dialog" style="max-width: 380px; max-height: 85vh; overflow-y: auto; text-align: left; padding: 18px;">
+    <div style="font-size: 18px; font-weight: bold; text-align: center; margin-bottom: 16px; color: var(--md-sys-color-primary);">📿 唱題のあゆみ</div>
+    
+    <!-- 今週・先週（常に左右2列表示） -->
+    <div class="history-weeks-grid">
+      <div class="history-week-card">
+        <div class="history-card-title">【今週】</div>
+        <div id="this-week-list" class="history-day-list"></div>
+        <div class="history-card-total">今週合計<span id="this-week-total" class="history-bold-num">0遍</span></div>
+      </div>
+      <div class="history-week-card">
+        <div class="history-card-title">【先週】</div>
+        <div id="last-week-list" class="history-day-list"></div>
+        <div class="history-card-total">先週合計<span id="last-week-total" class="history-bold-num">0遍</span></div>
+      </div>
+    </div>
+
+    <!-- 月別・年別集計カード（スマホ幅が狭いと自動で縦並び） -->
+    <div style="font-size: 13px; font-weight: bold; margin: 18px 0 8px 0; color: #52443C;">【唱題集計】</div>
+    <div class="history-summary-grid">
+      <div class="history-summary-card">
+        <span class="history-summary-label">今月</span>
+        <span id="this-month-total" class="history-bold-num">0遍</span>
+      </div>
+      <div class="history-summary-card">
+        <span class="history-summary-label">先月</span>
+        <span id="last-month-total" class="history-bold-num">0遍</span>
+      </div>
+      <div class="history-summary-card">
+        <span class="history-summary-label">今年</span>
+        <span id="this-year-total" class="history-bold-num">0遍</span>
+      </div>
+    </div>
+
+    <div class="dialog-actions" style="margin-top: 16px;">
+      <button class="btn-flat" style="background:#E0E0E0; width: 100%;" onclick="closeHistoryModal()">閉じる</button>
+    </div>
+  </div>
+</div>
+
 <!-- JavaScriptファイルを読み込む -->
- <script>
+<script>
 
 let state = { total: 0, today: 0, trust: 0, todayTrustGained: 0, streak: 0, lastDate: '', ownerName: '', catName: '', flowers: [], themeColor: 'default' };
 
@@ -722,6 +906,10 @@ function resetData() {
       ownerName: currentOwner, catName: currentCat, 
       flowers: generateFlowers(), themeColor: 'default'
     };
+    
+    // 【V19追加】日別履歴データもリセット
+    localStorage.removeItem('daimokuDailyHistory');
+    
     applyTheme('default');
     updateUI();
     closeSettings();
@@ -737,6 +925,22 @@ function submitRecord() {
   let oldToday = state.today || 0;
   state.today = oldToday + val;
   state.total = (state.total || 0) + val;
+
+  // ===== 【V19追加】日別データの保存ロジック =====
+  try {
+    const dNow = new Date();
+    const dYear = dNow.getFullYear();
+    const dMonth = String(dNow.getMonth() + 1).padStart(2, '0');
+    const dDay = String(dNow.getDate()).padStart(2, '0');
+    const dateKey = `${dYear}-${dMonth}-${dDay}`;
+    
+    let historyData = JSON.parse(localStorage.getItem('daimokuDailyHistory')) || {};
+    historyData[dateKey] = (historyData[dateKey] || 0) + val;
+    localStorage.setItem('daimokuDailyHistory', JSON.stringify(historyData));
+  } catch(e) {
+    console.error("履歴の保存に失敗しました:", e);
+  }
+  // ===============================================
 
   let oldGains = Math.floor(oldToday / 500) * 5;
   let newGains = Math.floor(state.today / 500) * 5;
@@ -754,6 +958,87 @@ function submitRecord() {
   closeDialog(); updateUI();
   document.getElementById('dialogue-text').innerText = getRandomDialogue();
   triggerAnim('anim-bounce');
+}
+
+
+// ===== 【V19追加】唱題のあゆみ 集計・表示ロジック =====
+function openHistoryModal() {
+  renderHistoryData();
+  document.getElementById('history-dialog').style.display = 'flex';
+}
+
+function closeHistoryModal() {
+  document.getElementById('history-dialog').style.display = 'none';
+}
+
+function renderHistoryData() {
+  const historyData = JSON.parse(localStorage.getItem('daimokuDailyHistory')) || {};
+  const now = new Date();
+  
+  let thisWeekTotal = 0;
+  let lastWeekTotal = 0;
+  let thisWeekHtml = '';
+  let lastWeekHtml = '';
+
+  // 今週（今日から遡って7日間）の集計・生成
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(now);
+    d.setDate(now.getDate() - i);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const count = historyData[key] || 0;
+    thisWeekTotal += count;
+    thisWeekHtml += `<div class="history-day-item"><span>${d.getMonth() + 1}/${d.getDate()}</span><span><strong>${count.toLocaleString()}</strong>遍</span></div>`;
+  }
+
+  // 先週（その前の7日間）の集計・生成
+  for (let i = 7; i < 14; i++) {
+    const d = new Date(now);
+    d.setDate(now.getDate() - i);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    const count = historyData[key] || 0;
+    lastWeekTotal += count;
+    lastWeekHtml += `<div class="history-day-item"><span>${d.getMonth() + 1}/${d.getDate()}</span><span><strong>${count.toLocaleString()}</strong>遍</span></div>`;
+  }
+
+  // 月別・年別の集計
+  let thisMonthTotal = 0;
+  let lastMonthTotal = 0;
+  let thisYearTotal = 0;
+
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth(); 
+  
+  const lastMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+  const lastMonthYear = lastMonthDate.getFullYear();
+  const lastMonth = lastMonthDate.getMonth();
+
+  for (const [dateStr, count] of Object.entries(historyData)) {
+    const parts = dateStr.split('-');
+    if (parts.length !== 3) continue;
+    
+    const rYear = parseInt(parts[0], 10);
+    const rMonth = parseInt(parts[1], 10) - 1;
+
+    if (rYear === currentYear) {
+      thisYearTotal += count; // 今年
+    }
+    if (rYear === currentYear && rMonth === currentMonth) {
+      thisMonthTotal += count; // 今月
+    }
+    if (rYear === lastMonthYear && rMonth === lastMonth) {
+      lastMonthTotal += count; // 先月
+    }
+  }
+
+  // 画面（DOM）への反映
+  document.getElementById('this-week-list').innerHTML = thisWeekHtml;
+  document.getElementById('last-week-list').innerHTML = lastWeekHtml;
+  document.getElementById('this-week-total').innerText = thisWeekTotal.toLocaleString() + "遍";
+  document.getElementById('last-week-total').innerText = lastWeekTotal.toLocaleString() + "遍";
+  
+  document.getElementById('this-month-total').innerText = thisMonthTotal.toLocaleString() + "遍";
+  document.getElementById('last-month-total').innerText = lastMonthTotal.toLocaleString() + "遍";
+  document.getElementById('this-year-total').innerText = thisYearTotal.toLocaleString() + "遍";
 }
 
 window.onload = init;
