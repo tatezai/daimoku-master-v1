@@ -554,7 +554,7 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
 <!-- JavaScriptファイルを読み込む -->
 <script>
 
-let state = { total: 0, today: 0, trust: 40, todayTrustGained: 0, streak: 0, lastDate: '', ownerName: '', catName: '', flowers: [], themeColor: 'default' };
+let state = { total: 0, today: 0, trust: 50, todayTrustGained: 0, streak: 0, lastDate: '', ownerName: '', catName: '', flowers: [], themeColor: 'default' };
 
 function generateFlowers() {
   const colors = ['#F44336', '#2196F3', '#FFEB3B', '#E91E63', '#FF9800', '#FFFFFF'];
@@ -928,7 +928,7 @@ function resetData() {
     const currentOwner = state.ownerName;
     const currentCat = state.catName;
     state = {
-      total: 0, today: 0, trust: 40, todayTrustGained: 0, streak: 0,
+      total: 0, today: 0, trust: 50, todayTrustGained: 0, streak: 0,
       lastDate: new Date().toLocaleDateString(),
       ownerName: currentOwner, catName: currentCat, 
       flowers: generateFlowers(), themeColor: 'default'
