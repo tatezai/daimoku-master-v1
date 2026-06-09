@@ -743,10 +743,37 @@ function selectTheme(id) { state.themeColor = id; applyTheme(id); updateUI(); re
 function updateUI() {
   let r = "初級実践者";
   let mc = "#CD7F32";
-  if (state.total >= 750000) { r = "広宣流布の勇者"; mc = "#FFD700"; }
-  else if (state.total >= 500000) { r = "ダイモク・マスター"; mc = "#E5E4E2"; }
-  else if (state.total >= 250000) { r = "努力の勇者"; mc = "#C0C0C0"; }
-
+  let r = "初級実践者";
+let mc = "#CD7F32";
+if (state.total >= 750000) {
+  r = "広宣流布の勇者";
+  mc = "#FFD700";
+}
+else if (state.total >= 500000) {
+  r = "ダイモク・マスター";
+  mc = "#E5E4E2";
+}
+else if (state.total >= 250000) {
+  r = "努力の勇者";
+  mc = "#C0C0C0";
+}
+else if (state.total >= 100000) {
+  r = "継続の達人";
+  mc = "#90CAF9";
+}
+else if (state.total >= 50000) {
+  r = "唱題リーダー";
+  mc = "#81C784";
+}
+else if (state.total >= 25000) {
+  r = "実践の人";
+  mc = "#FFB74D";
+}
+else if (state.total >= 10000) {
+  r = "挑戦者";
+  mc = "#CE93D8";
+}
+  
   let unbloomed = state.flowers.filter(f => state.total < f.target);
   let progress = 0;
   if (unbloomed.length === 0) {
