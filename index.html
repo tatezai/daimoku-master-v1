@@ -415,7 +415,7 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
         <div class="status-item"><span class="status-label">本日唱題</span><div class="status-value large" id="today-text">0 遍</div></div>
         <div class="status-item">
           <span class="status-label">なかよし度 (<span id="trust-text">0%</span>)</span>
-          <span style="font-size: 9.5px; color: #795548; font-weight: 500; margin-top: 1px; line-height: 1.3;">お題目500遍で5%アップ<br>毎日10%ダウン</span>
+          <span style="font-size: 9.5px; color: #795548; font-weight: 500; margin-top: 1px; line-height: 1.3;">お題目500遍ごとに5%アップ<br>お世話で1%アップ<br>毎日10%ダウン</span>
         </div>
         
         <div class="status-divider"></div>
@@ -478,7 +478,7 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
     <div style="display: flex; gap: 8px; margin-bottom: 14px;">
       <div style="flex: 1;">
         <span class="setting-label">飼い主の名前</span>
-        <input type="text" class="dialog-input" id="owner-input" placeholder="例) タケさん" style="margin-bottom:0; padding:8px; font-size:14px;">
+        <input type="text" class="dialog-input" id="owner-input" placeholder="例) タケ" style="margin-bottom:0; padding:8px; font-size:14px;">
       </div>
       <div style="flex: 1;">
         <span class="setting-label">ネコの名前</span>
@@ -897,9 +897,27 @@ function triggerAnim(className) {
 }
 
 function handleAction(type) {
-  if (type === 'stroke') { document.getElementById('dialogue-text').innerText = "ふにゃ〜ん！温かいにゃ〜。"; triggerAnim('anim-purr'); }
-  if (type === 'play') { document.getElementById('dialogue-text').innerText = "おもちゃ楽しいにゃ！トウッ！"; triggerAnim('anim-jump'); }
-  if (type === 'snack') { document.getElementById('dialogue-text').innerText = "おやつ美味しいにゃ！モグモグ。"; triggerAnim('anim-bounce'); }
+
+  if (type === 'stroke') {
+    state.trust = Math.min(100, state.trust + 1);
+    updateUI();
+    document.getElementById('dialogue-text').innerText = "ふにゃ〜ん！温かいにゃ〜。";
+    triggerAnim('anim-purr');
+  }
+
+  if (type === 'play') {
+    state.trust = Math.min(100, state.trust + 1);
+    updateUI();
+    document.getElementById('dialogue-text').innerText = "おもちゃ楽しいにゃ！トウッ！";
+    triggerAnim('anim-jump');
+  }
+
+  if (type === 'snack') {
+    state.trust = Math.min(100, state.trust + 1);
+    updateUI();
+    document.getElementById('dialogue-text').innerText = "おやつ美味しいにゃ！モグモグ。";
+    triggerAnim('anim-bounce');
+  }
 }
 
 function openDialog() { document.getElementById('record-dialog').style.display = 'flex'; }
@@ -997,7 +1015,6 @@ function openHistoryModal() {
 function closeHistoryModal() {
   document.getElementById('history-dialog').style.display = 'none';
 }
-
 function renderHistoryData() {
   const historyData = JSON.parse(localStorage.getItem('daimokuDailyHistory')) || {};
   const now = new Date();
@@ -1007,42 +1024,55 @@ function renderHistoryData() {
   let thisWeekHtml = '';
   let lastWeekHtml = '';
 
-  // 今週（今日から遡って7日間）の集計・生成
+  // --- 【修正】今週の月曜日を計算 ---
+  const dayOfWeek = now.getDay(); // 0:日, 1:月, 2:火, ..., 6:土
+  // 日曜日の場合は6日前、それ以外は (曜日番号 - 1) 日前が月曜日
+  const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  
+  const thisMonday = new Date(now);
+  thisMonday.setDate(now.getDate() - daysToMonday);
+
+  // --- 【修正】今週（月曜日～日曜日）の集計・生成 ---
   for (let i = 0; i < 7; i++) {
-    const d = new Date(now);
-    d.setDate(now.getDate() - i);
+    const d = new Date(thisMonday);
+    d.setDate(thisMonday.getDate() + i);
     const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     const count = historyData[key] || 0;
     thisWeekTotal += count;
+    
+    // 表示は元の「配列/日付」の形式を維持（※曜日を入れたい場合は下記ワンポイント参照）
     thisWeekHtml += `<div class="history-day-item"><span>${d.getMonth() + 1}/${d.getDate()}</span><span><strong>${count.toLocaleString()}</strong>遍</span></div>`;
   }
 
-  // 先週（その前の7日間）の集計・生成
-  for (let i = 7; i < 14; i++) {
-    const d = new Date(now);
-    d.setDate(now.getDate() - i);
+  // --- 【修正】先週の月曜日を計算 ---
+  const lastMonday = new Date(thisMonday);
+  lastMonday.setDate(thisMonday.getDate() - 7);
+
+  // --- 【修正】先週（月曜日～日曜日）の集計・生成 ---
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(lastMonday);
+    d.setDate(lastMonday.getDate() + i);
     const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     const count = historyData[key] || 0;
     lastWeekTotal += count;
+    
     lastWeekHtml += `<div class="history-day-item"><span>${d.getMonth() + 1}/${d.getDate()}</span><span><strong>${count.toLocaleString()}</strong>遍</span></div>`;
   }
 
-  // 月別・年別の集計
+  // ===== 以下、月別・年別の集計ロジック（変更なし） =====
   let thisMonthTotal = 0;
   let lastMonthTotal = 0;
   let thisYearTotal = 0;
 
   const currentYear = now.getFullYear();
-  const currentMonth = now.getMonth(); 
-  
+  const currentMonth = now.getMonth();     
   const lastMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
   const lastMonthYear = lastMonthDate.getFullYear();
   const lastMonth = lastMonthDate.getMonth();
 
   for (const [dateStr, count] of Object.entries(historyData)) {
     const parts = dateStr.split('-');
-    if (parts.length !== 3) continue;
-    
+    if (parts.length !== 3) continue;        
     const rYear = parseInt(parts[0], 10);
     const rMonth = parseInt(parts[1], 10) - 1;
 
@@ -1057,16 +1087,16 @@ function renderHistoryData() {
     }
   }
 
-  // 画面（DOM）への反映
+  // ===== 画面（DOM）への反映 =====
   document.getElementById('this-week-list').innerHTML = thisWeekHtml;
   document.getElementById('last-week-list').innerHTML = lastWeekHtml;
   document.getElementById('this-week-total').innerText = thisWeekTotal.toLocaleString() + "遍";
-  document.getElementById('last-week-total').innerText = lastWeekTotal.toLocaleString() + "遍";
-  
+  document.getElementById('last-week-total').innerText = lastWeekTotal.toLocaleString() + "遍";    
   document.getElementById('this-month-total').innerText = thisMonthTotal.toLocaleString() + "遍";
   document.getElementById('last-month-total').innerText = lastMonthTotal.toLocaleString() + "遍";
   document.getElementById('this-year-total').innerText = thisYearTotal.toLocaleString() + "遍";
 }
+
 
 window.onload = init;
 
