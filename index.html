@@ -575,7 +575,7 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
 <!-- JavaScriptファイルを読み込む -->
 <script>
 
-let state = { total: 0, today: 0, trust: 50, todayTrustGained: 0, streak: 0, lastDate: '', ownerName: '', catName: '', flowers: [], themeColor: 'default' };
+　　　　　　　let state = { total: 0, today: 0, trust: 50, todayTrustGained: 0, streak: 0, lastDate: '', ownerName: '', catName: '', flowers: [], themeColor: 'default', strokeToday: false, playToday: false, snackToday: false };
 
 function generateFlowers() {
   const colors = ['#F44336', '#2196F3', '#FFEB3B', '#E91E63', '#FF9800', '#FFFFFF'];
@@ -635,30 +635,41 @@ function getRandomDialogue() {
   ];
   return msgs[Math.floor(Math.random() * msgs.length)];
 }
-
-function init() {
+　
+　　　　　　　　function init() {
   const saved = localStorage.getItem('daimoku_master_data');
   if (saved) {
     const parsed = JSON.parse(saved);
     state = { ...state, ...parsed };
     
-    if (state.trust === undefined) state.trust = 0;
-    if (state.todayTrustGained === undefined) state.todayTrustGained = 0;
+ if (state.trust === undefined) state.trust = 0;
+if (state.todayTrustGained === undefined) state.todayTrustGained = 0;
+if (state.strokeToday === undefined) state.strokeToday = false;
+if (state.playToday === undefined) state.playToday = false;
+if (state.snackToday === undefined) state.snackToday = false;
 
-    const today = new Date().toLocaleDateString();
-    if (state.lastDate !== today) {
-      state.trust = Math.max(0, state.trust - 10);
-      state.todayTrustGained = 0;
+const today = new Date().toLocaleDateString();
+if (state.lastDate !== today) {
+  state.trust = Math.max(0, state.trust - 10);
+  state.todayTrustGained = 0;
+  state.strokeToday = false;
+  state.playToday = false;
+  state.snackToday = false;
+  
+  let y = new Date(); y.setDate(y.getDate() - 1);
+  state.streak = (state.lastDate === y.toLocaleDateString()) ? (state.streak || 0) + 1 : 1;
+  state.today = 0; 
+  state.lastDate = today;
+}
+} else {
+  state.lastDate = new Date().toLocaleDateString();
+  state.trust = 0;
+  state.todayTrustGained = 0;
+  state.strokeToday = false;
+  state.playToday = false;
+  state.snackToday = false;
+}
 
-      let y = new Date(); y.setDate(y.getDate() - 1);
-      state.streak = (state.lastDate === y.toLocaleDateString()) ? (state.streak || 0) + 1 : 1;
-      state.today = 0; state.lastDate = today;
-    }
-  } else { 
-    state.lastDate = new Date().toLocaleDateString();
-    state.trust = 0;
-    state.todayTrustGained = 0;
-  }
   
   if (!state.ownerName) state.ownerName = 'タケさん';
   if (!state.catName) state.catName = 'みるく';
@@ -917,29 +928,48 @@ function triggerAnim(className) {
   }, 1500);
 }
 
-function handleAction(type) {
-
+　　　function handleAction(type) {
   if (type === 'stroke') {
+    // もし今日すでになでていたら、セリフだけ変えてここで終了する
+    if (state.strokeToday) {
+      document.getElementById('dialogue-text').innerText = "今日はもう満足だにゃ！また明日なでてね🐾";
+      return;
+    }
+    state.strokeToday = true; // 今日なでたフラグをONにする
     state.trust = Math.min(100, state.trust + 1);
     updateUI();
     document.getElementById('dialogue-text').innerText = "ふにゃ〜ん！温かいにゃ〜。";
     triggerAnim('anim-purr');
   }
-
+  
   if (type === 'play') {
+    // もし今日すでに遊んでいたら、セリフだけ変えてここで終了する
+    if (state.playToday) {
+      document.getElementById('dialogue-text').innerText = "今日はもういっぱい遊んだにゃ！また明日ね🐾";
+      return;
+    }
+    state.playToday = true; // 今日遊んだフラグをONにする
     state.trust = Math.min(100, state.trust + 1);
     updateUI();
     document.getElementById('dialogue-text').innerText = "おもちゃ楽しいにゃ！トウッ！";
     triggerAnim('anim-jump');
   }
-
+  
   if (type === 'snack') {
+    // もし今日すでにおやつをあげていたら、セリフだけ変えてここで終了する
+    if (state.snackToday) {
+      document.getElementById('dialogue-text').innerText = "今日のおやつはもうおしまいだにゃ！また明日🐾";
+      return;
+    }
+    state.snackToday = true; // 今日おやつをあげたフラグをONにする
     state.trust = Math.min(100, state.trust + 1);
     updateUI();
     document.getElementById('dialogue-text').innerText = "おやつ美味しいにゃ！モグモグ。";
     triggerAnim('anim-bounce');
   }
-}
+} // ←最後に関数を閉じるカッコを忘れないようにします
+
+
 
 function openDialog() { document.getElementById('record-dialog').style.display = 'flex'; }
 function closeDialog() { document.getElementById('record-dialog').style.display = 'none'; document.getElementById('daimoku-input').value = ""; }
@@ -1125,3 +1155,6 @@ window.onload = init;
 
 </body>
 </html>
+
+
+
