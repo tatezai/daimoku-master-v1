@@ -350,30 +350,19 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
 
     <div class="character-stage" id="milk-stage">
 
-<svg id="milk-svg" viewBox="0 0 200 200">
+                     <svg id="milk-svg" viewBox="0 0 200 200">
         <g id="milk-base-platform">
           <ellipse cx="100" cy="180" rx="75" ry="15" fill="#5E35B1" />
           <ellipse cx="100" cy="176" rx="70" ry="12" fill="#673AB7" />
         </g>
         
-        <g id="item-zabuton" style="display: none;">
-          <path d="M 30,166 L 170,166 L 188,186 L 12,186 Z" fill="#9C27B0" stroke="#7B1FA2" stroke-width="1.5"/>
-          <path d="M 12,186 L 188,186 L 183,193 L 17,193 Z" fill="#7B1FA2"/>
-          <circle cx="14" cy="189" r="2.5" fill="#FFEB3B"/>
-          <circle cx="186" cy="189" r="2.5" fill="#FFEB3B"/>
-          <circle cx="31" cy="167" r="1.5" fill="#FFEB3B"/>
-          <circle cx="169" cy="167" r="1.5" fill="#FFEB3B"/>
-        </g>
-
         <ellipse cx="165" cy="182" rx="16" ry="6" fill="#E91E63" />
         <path d="M 155,173 Q 155,186 165,186 Q 175,186 175,173 Z" fill="#FFC107" />
         <ellipse cx="165" cy="173" rx="10" ry="3" fill="#FFA000" />
         <rect x="164" y="155" width="2.5" height="18" fill="#795548" transform="rotate(20, 165, 173)" />
 
         <g id="milk-tail"><path d="M 140,145 C 165,135 175,105 165,75 C 155,65 145,75 150,90 C 155,105 140,125 130,135" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/></g>
-        
         <path d="M 50,135 C 40,135 40,170 55,175 C 70,180 130,180 145,175 C 160,170 160,135 150,135 C 130,115 70,115 50,135" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
-        
         <circle cx="74.5" cy="173" r="7.5" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
         
         <g id="milk-foot-left">
@@ -384,47 +373,62 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
           <circle cx="94.3" cy="171" r="1" fill="#F8BBD0"/>
         </g>
         
-        <g id="milk-foot-right">
-          <circle cx="108.5" cy="173" r="7.5" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
-          <circle cx="108.5" cy="174.5" r="2.8" fill="#F8BBD0"/>
-          <circle cx="105.7" cy="171" r="1" fill="#F8BBD0"/>
-          <circle cx="108.5" cy="169.5" r="1" fill="#F8BBD0"/>
-          <circle cx="111.3" cy="171" r="1" fill="#F8BBD0"/>
-        </g>
         
+                <g id="milk-foot-right">
+  <circle cx="108.5" cy="173" r="7.5"
+          fill="#FFFFFF"
+          stroke="#E0E0E0"
+          stroke-width="2"/>
+
+  <circle cx="108.5" cy="174.5" r="2.8"
+          fill="#F8BBD0"/>
+
+  <circle cx="105.7" cy="171" r="1"
+          fill="#F8BBD0"/>
+
+  <circle cx="108.5" cy="169.5" r="1"
+          fill="#F8BBD0"/>
+
+  <circle cx="111.3" cy="171" r="1"
+          fill="#F8BBD0"/>
+</g>
+
+
+ 
         <circle cx="125.5" cy="173" r="7.5" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
 
-        <path d="M 60,115 Q 100,130 140,115" fill="none" stroke="#D32F2F" stroke-width="5"/>
-        <circle id="medal-color" cx="100" cy="122" r="10" fill="#B0BEC5" stroke="#FFFFFF" stroke-width="1.5"/>
+<path d="M 96,128 L 82,136 L 94,138 Z"
+      fill="#FFD700" />
 
-        <g id="item-ribbon" style="display: none;" transform="scale(1.3)" transform-origin="100 122">
-          <path d="M 100,122 Q 84,110 88,124 Q 92,134 100,124" fill="#E53935"/>
-          <path d="M 100,122 Q 116,110 112,124 Q 108,134 100,124" fill="#E53935"/>
-          <circle cx="100" cy="123" r="4.5" fill="#B71C1C"/>
-          <path d="M 98,125 L 91,138 L 96,138 Z" fill="#E53935"/>
-          <path d="M 102,125 L 109,138 L 104,138 Z" fill="#E53935"/>
-        </g>
+<path d="M 104,128 L 118,136 L 106,138 Z"
+      fill="#FFD700" />
 
-        <g id="item-brooch" style="display: none;" transform="translate(-15, 26)">
-          <circle cx="100" cy="122" r="9" fill="#FFD700" stroke="#FFA000" stroke-width="1"/>
-          <polygon points="100,115 102,120 107,120 103,123 105,128 100,125 95,128 97,123 93,120 98,120" fill="#FFEB3B"/>
-          <circle cx="100" cy="122" r="3.5" fill="#E91E63"/>
-        </g>
+<image id="milk-medal"
+       href="aluminum.png"
+       x="84"
+       y="130"
+       width="32"
+       height="32"/>
+
 
         <g id="milk-head" transform="translate(0, -5)">
           <path d="M 50,82 Q 40,42 75,57 Z" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
           <path d="M 55,77 Q 48,52 70,62 Z" fill="#F8BBD0"/>
           <path d="M 150,82 Q 160,42 125,57 Z" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
           <path d="M 145,77 Q 152,52 130,62 Z" fill="#F8BBD0"/>
-          
           <ellipse cx="100" cy="95" rx="52" ry="42" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="2"/>
           <g class="eyes-normal" id="eyes-normal"><circle cx="76" cy="85" r="8" fill="#0288D1"/><circle cx="74" cy="82" r="2.5" fill="#FFFFFF"/><circle cx="124" cy="85" r="8" fill="#0288D1"/><circle cx="122" cy="82" r="2.5" fill="#FFFFFF"/></g>
           <g class="eyes-happy" id="eyes-happy" style="display: none;"><path d="M 68,85 Q 76,72 84,85" fill="none" stroke="#3E2723" stroke-width="2.5"/><path d="M 116,85 Q 124,72 132,85" fill="none" stroke="#3E2723" stroke-width="2.5"/></g>
           <polygon points="100,99 97,95 103,95" fill="#F8BBD0"/>
           <path d="M 97,103 Q 100,106 100,103 Q 100,106 103,103" fill="none" stroke="#3E2723" stroke-width="1.5"/>
         </g>
-      </svg>
-   
+
+        <g id="item-zabuton" style="display: none;"></g>
+        <g id="item-ribbon" style="display: none;"></g>
+        <g id="item-brooch" style="display: none;"></g>
+        <g id="medal-color" style="display: none;"></g>
+</svg>
+
  
     </div>
 
@@ -438,13 +442,32 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
           <span class="status-label">なかよし度 (<span id="trust-text">0%</span>)</span>
           <span style="font-size: 9.5px; color: #795548; font-weight: 500; margin-top: 1px; line-height: 1.3;">お題目500遍ごとに5%アップ<br>お世話で1%アップ<br>毎日10%ダウン</span>
         </div>
-        
-        <div class="status-divider"></div>
-        
-        <div class="status-item"><span class="status-label">持続は力・毎日唱題記録</span><div class="status-value" id="streak-text">0 日</div></div>
-        <div class="status-item">
-          <span class="status-label">開花のヒント</span>
-          <div class="status-value" id="next-flower-text">あと 5,000 遍で次の花が咲くよ</div>
+
+ <div class="status-item">
+  <span class="status-label">🏅 現在のメダル</span>
+
+  <div id="medal-name"
+       style="font-size:18px;font-weight:bold;color:#A65D00;margin-top:4px;">
+    アルミメダル
+  </div>
+
+  <div id="token-count-text"
+       style="font-size:18px;font-weight:bold;color:#D97706;margin-top:6px;">
+    0 枚
+  </div>
+
+  <div id="next-medal-text"
+       style="font-size:12px;color:#666;margin-top:2px;">
+    あと30枚で🥉ブロンズ
+  </div>
+</div>
+
+<div class="status-item">
+  <span class="status-label">開花のヒント</span>
+  <div class="status-value" id="next-flower-text">あと 5,000 遍で次の花が咲くよ</div>
+       
+       
+      
           <div class="progress-bar"><div class="progress-fill" id="next-flower-fill"></div></div>
         </div>
       </div>
@@ -482,14 +505,21 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
       <button class="preset-btn" onclick="setInputValue(3000)">3000</button>
       <button class="preset-btn" onclick="setInputValue(5000)">5000</button>
       <button class="preset-btn" onclick="setInputValue(10000)">10000</button>
-    </div>
+　　　</div>
     <input type="number" class="dialog-input" id="daimoku-input" placeholder="回数を入力" min="1">
+    
     <div class="dialog-actions">
-   <button class="btn-flat" style="background:#E0E0E0;" onclick="closeDialog()">やめる</button>
-   <button class="btn-flat" style="background:#A65D00; color:white;" onclick="submitRecord()"> 保存 </button>
+      <button class="btn-flat" style="background:#E0E0E0;" onclick="closeDialog()">閉じる</button>
+      <button class="btn-flat" style="background:#A65D00; color:white;" onclick="submitRecord()"> 保存 </button>
     </div>
+
+    <button type="button" onclick="getToken()" style="display: block; width: 100%; padding: 14px; background: linear-gradient(135deg, #fbe34d 0%, #f9cb15 100%); color: #78350f; border: 2px solid #f59e0b; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);">🏅 今日もがんばった</button>
+
   </div>
+</div>    
+
 </div>
+    
 
 <!-- 設定＆マイページ画面 -->
 <div class="dialog-overlay" id="settings-dialog">
@@ -508,11 +538,51 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
     </div>
 
     <!-- コレクション確認エリア -->
-    <div style="margin-bottom: 16px; text-align: left;">
-      <span class="setting-label" style="border-bottom: 2px solid #FF8A80; padding-bottom: 2px; margin-bottom: 8px;">👗 みるくのコレクション（5万遍ごと自動着用）</span>
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;" id="item-selector-grid"></div>
-    </div>
+　　　　　　　　　　　　　　　　　　
+    
+　　　　　　　　　　<!-- メダル説明エリア -->
+<div style="margin-bottom: 16px; text-align: left;">
+  <span class="setting-label"
+        style="border-bottom: 2px solid #FFD700; padding-bottom: 2px;">
+    🏅ゲットしたメダルの枚数で、メダルの色が変わるよ
+  </span>
+　　　　　　　　　　　　<div style="
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:6px;">
 
+<div class="medal-card">
+  <img src="aluminum.png"
+       style="width:32px;height:32px;"><br>
+  アルミメダル<br>
+  <span style="font-size:11px;">メダル 0～29枚</span>
+</div>
+
+  <div class="medal-card">
+  <img src="bronze.png"
+       style="width:32px;height:32px;"><br>
+  ブロンズメダル<br>
+  <span style="font-size:11px;">メダル 30～89枚</span>
+</div>  
+
+ <div class="medal-card">
+  <img src="silver.png"
+       style="width:32px;height:32px;"><br>
+  シルバーメダル<br>
+  <span style="font-size:11px;">メダル 90～179枚</span>
+</div>   
+
+ <div class="medal-card">
+  <img src="gold.png"
+       style="width:32px;height:32px;"><br>
+  ゴールドメダル<br>
+  <span style="font-size:11px;">メダル 180枚以上</span>
+</div>
+   
+ 
+  <div id="item-selector-grid"></div>
+</div>
+　　　　　　　　　　　　　　　
     <!-- カラー変更機能 -->
     <div style="margin-bottom: 14px; text-align: left;">
       <span class="setting-label" style="border-bottom: 2px solid #80DEEA; padding-bottom: 2px; margin-bottom: 8px;">🎨 模様替え・カラー（15日ごと）</span>
@@ -575,7 +645,9 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
 <!-- JavaScriptファイルを読み込む -->
 <script>
 
-　　　　　　　let state = { total: 0, today: 0, trust: 50, todayTrustGained: 0, streak: 0, lastDate: '', ownerName: '', catName: '', flowers: [], themeColor: 'default', strokeToday: false, playToday: false, snackToday: false };
+let state = { total: 0, today: 0, trust: 50, todayTrustGained: 0, streak: 0, lastDate: '', ownerName: '', catName: '', flowers: [], themeColor: 'default', strokeToday: false, playToday: false, snackToday: false, token: 0, lastTokenDate: '' };
+
+　　　　　　　
 
 function generateFlowers() {
   const colors = ['#F44336', '#2196F3', '#FFEB3B', '#E91E63', '#FF9800', '#FFFFFF'];
@@ -642,11 +714,13 @@ function getRandomDialogue() {
     const parsed = JSON.parse(saved);
     state = { ...state, ...parsed };
     
- if (state.trust === undefined) state.trust = 0;
-if (state.todayTrustGained === undefined) state.todayTrustGained = 0;
+ if (state.trust === undefined) state.trust = 0;  
 if (state.strokeToday === undefined) state.strokeToday = false;
 if (state.playToday === undefined) state.playToday = false;
 if (state.snackToday === undefined) state.snackToday = false;
+if (state.token === undefined) state.token = 0;
+if (state.lastTokenDate === undefined) state.lastTokenDate = '';
+
 
 const today = new Date().toLocaleDateString();
 if (state.lastDate !== today) {
@@ -752,8 +826,8 @@ function renderSelectorGrids() {
       itemHTML += `<div style="${style}">🔒 ${item.name}<br>(${(item.req/10000)}万遍)</div>`;
     }
   });
-  document.getElementById('item-selector-grid').innerHTML = itemHTML;
-
+　　　　　　//document.getElementById('item-selector-grid').innerHTML = itemHTML;
+  
   let themeHTML = '';
   themes.forEach(t => {
     const isUnlocked = (state.streak || 0) >= t.req;
@@ -773,6 +847,9 @@ function renderSelectorGrids() {
 function selectTheme(id) { state.themeColor = id; applyTheme(id); updateUI(); renderSelectorGrids(); }
 
 function updateUI() {
+
+ 
+
 
   let r = "初級実践者";
 let mc = "#CD7F32";
@@ -823,12 +900,63 @@ else if (state.total >= 10000) {
   }
   document.getElementById('next-flower-fill').style.width = Math.min(100, Math.max(0, progress)) + "%";
 
-  document.getElementById('medal-color').setAttribute('fill', mc);
+             let medalColor = '#C0C8D0';  // アルミ
+
+if (state.token >= 180) {
+  medalColor = '#FFD700';    // ゴールド
+}
+else if (state.token >= 90) {
+  medalColor = '#C0C0C0';    // シルバー
+}
+else if (state.token >= 30) {
+  medalColor = '#CD7F32';    // ブロンズ
+}
+
+const medalElem = document.getElementById('milk-medal');
+if (medalElem) {
+  medalElem.setAttribute('fill', medalColor);
+}
+ 
+  
   document.getElementById('rank-text').innerText = r;
   document.getElementById('today-text').innerText = (state.today || 0).toLocaleString() + " 遍";
   document.getElementById('total-text').innerText = (state.total || 0).toLocaleString() + " 遍";
   document.getElementById('trust-text').innerText = (state.trust || 0) + "%";
-  document.getElementById('streak-text').innerText = (state.streak || 0) + " 日";
+           const tokenElem = document.getElementById('token-count-text');
+if (tokenElem) {
+  tokenElem.innerText = (state.token || 0) + " 枚";
+}  
+const nextMedalElem =
+document.getElementById('next-medal-text');
+
+if (nextMedalElem) {
+
+  let text = "";
+
+  if ((state.token || 0) < 30) {
+    text = `あと${30 - (state.token || 0)}枚で🥉ブロンズ`;
+  }
+  else if ((state.token || 0) < 90) {
+    text = `あと${90 - (state.token || 0)}枚で🥈シルバー`;
+  }
+  else if ((state.token || 0) < 180) {
+    text = `あと${180 - (state.token || 0)}枚で🥇ゴールド`;
+  }
+  else {
+    text = "🏆 メダルコンプリート！";
+  }
+
+  nextMedalElem.innerText = text;
+}
+
+const streakElem =
+document.getElementById('streak-text');
+
+if (streakElem) {
+  streakElem.innerText =
+  (state.streak || 0) + " 日";
+}
+　
   
   document.getElementById('header-desc').innerText = `${state.catName}と一緒に今日も唱題チャレンジ`;
 
@@ -967,6 +1095,28 @@ function triggerAnim(className) {
     document.getElementById('dialogue-text').innerText = "おやつ美味しいにゃ！モグモグ。";
     triggerAnim('anim-bounce');
   }
+
+function earnToken() {
+  const today = new Date().toLocaleDateString();
+
+  // 1日1回制限のチェック
+  if (state.lastTokenDate === today) {
+    alert("今日はすでにメダルを受け取りました。");
+    return;
+  }
+
+  // トークンを1枚増やす
+  state.token = (state.token || 0) + 1;
+  state.lastTokenDate = today;
+
+  // 画面の表示を更新する
+  if (typeof updateUI === 'function') updateUI();
+  // データをブラウザに保存する
+  if (typeof saveData === 'function') saveData();
+
+  alert("🏅メダルを1枚獲得しました！夢に向かって一歩前進だにゃ🐾");
+}
+
 } // ←最後に関数を閉じるカッコを忘れないようにします
 
 
@@ -1148,13 +1298,35 @@ function renderHistoryData() {
   document.getElementById('this-year-total').innerText = thisYearTotal.toLocaleString() + "遍";
 }
 
-
 window.onload = init;
+
+// ==========================================
+// 【追加機能】トークン獲得システム（Ver2）
+// ==========================================
+function getToken() {
+  const today = new Date().toLocaleDateString();
+  
+  // 【仕様3】1日1回制限のチェック
+  if (state.lastTokenDate === today) {
+    alert("今日はすでにトークンを受け取りました。");
+    return;
+  }
+  
+  // 【仕様1】トークンを1枚増やして日付を保存
+  if (state.token === undefined) state.token = 0;
+  state.token++; 
+  state.lastTokenDate = today;
+  
+  // 既存の保存関数と画面更新関数を呼び出す
+  if (typeof saveData === 'function') saveData();
+  if (typeof updateUI === 'function') updateUI();
+  
+  alert("🏅トークンを1枚獲得しました！夢に向かって一歩前進だにゃ🐾");
+}
 
 </script> 
 
 </body>
 </html>
-
 
 
