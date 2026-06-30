@@ -440,7 +440,7 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
         <div class="status-item"><span class="status-label">本日唱題</span><div class="status-value large" id="today-text">0 遍</div></div>
         <div class="status-item">
           <span class="status-label">なかよし度 (<span id="trust-text">0%</span>)</span>
-          <span style="font-size: 9.5px; color: #795548; font-weight: 500; margin-top: 1px; line-height: 1.3;">お題目500遍ごとに5%アップ<br>お世話で1%アップ<br>毎日10%ダウン</span>
+          <span style="font-size: 9.5px; color: #795548; font-weight: 500; margin-top: 1px; line-height: 1.3;">お題目500遍ごとに3%アップ<br>お世話で1%アップ<br>毎日10%ダウン</span>
         </div>
 
  <div class="status-item">
@@ -732,7 +732,7 @@ if (state.lastTokenDate === undefined) state.lastTokenDate = '';
 
 const today = new Date().toLocaleDateString();
 if (state.lastDate !== today) {
-  state.trust = Math.max(0, state.trust - 10);
+  state.trust = Math.max(30, state.trust - 10);
   state.todayTrustGained = 0;
   state.strokeToday = false;
   state.playToday = false;
@@ -1196,13 +1196,13 @@ function submitRecord() {
   }
   // ===============================================
 
-  let oldGains = Math.floor(oldToday / 500) * 5;
-  let newGains = Math.floor(state.today / 500) * 5;
+  let oldGains = Math.floor(oldToday / 500) * 3;
+  let newGains = Math.floor(state.today / 500) * 3;
   let diffGains = newGains - oldGains;
 
   if (diffGains > 0) {
     let currentGained = state.todayTrustGained || 0;
-    let allowedGain = Math.min(diffGains, 30 - currentGained);
+    let allowedGain = Math.min(diffGains, 20 - currentGained);
     if (allowedGain > 0) {
       state.trust = Math.min(100, (state.trust || 0) + allowedGain);
       state.todayTrustGained = currentGained + allowedGain;
@@ -1332,9 +1332,13 @@ function getToken() {
   alert("🏅トークンを1枚獲得しました！夢に向かって一歩前進だにゃ🐾");
 }
 
+// ===== デバッグ用 =====
+function debugTrust(value) {
+  state.trust = value;
+  updateUI();
+}
 </script> 
 
 </body>
 </html>
-
 
