@@ -551,49 +551,53 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
 <div style="margin-bottom: 16px; text-align: left;">
   <span class="setting-label"
         style="border-bottom: 2px solid #FFD700; padding-bottom: 2px;">
-    🏅ゲットしたメダルの枚数で、ペットのメダルの色が変わるよ
+    🏅メダルの枚数でメダルの色が変わるよ
   </span>
 　　　　　　　　　　　　<div style="
       display:grid;
       grid-template-columns:repeat(2,1fr);
-      gap:6px;">
+      gap:4px;">
 
-<div class="medal-card">
-  <img src="aluminum.png"
-       style="width:32px;height:32px;"><br>
-  アルミメダル<br>
-  <span style="font-size:11px;">メダル 0～29枚</span>
-</div>
-
-  <div class="medal-card">
-  <img src="bronze.png"
-       style="width:32px;height:32px;"><br>
-  ブロンズメダル<br>
-  <span style="font-size:11px;">メダル 30～89枚</span>
+<div style="text-align:center;padding:4px;line-height:1.2;">
+  <div style="display:flex; align-items:center; justify-content:center; gap:4px;">
+    <img src="aluminum.png" style="width:22px;height:auto;">
+    <span style="font-weight:bold;">アルミ</span>
+  </div>
+  <div style="font-size:11px; margin-top:2px;">0～29枚</div>
 </div>  
 
- <div class="medal-card">
-  <img src="silver.png"
-       style="width:32px;height:32px;"><br>
-  シルバーメダル<br>
-  <span style="font-size:11px;">メダル 90～179枚</span>
-</div>   
+<div style="text-align:center;padding:4px;line-height:1.2;">
+  <div style="display:flex; align-items:center; justify-content:center; gap:4px;">
+    <img src="bronze.png" style="width:22px;height:auto;">
+    <span style="font-weight:bold;">ブロンズ</span>
+  </div>
+  <div style="font-size:11px; margin-top:2px;">30～89枚</div>
+</div>  
 
- <div class="medal-card">
-  <img src="gold.png"
-       style="width:32px;height:32px;"><br>
-  ゴールドメダル<br>
-  <span style="font-size:11px;">メダル 180枚以上</span>
+<div style="text-align:center;padding:4px;line-height:1.2;">
+  <div style="display:flex; align-items:center; justify-content:center; gap:4px;">
+    <img src="silver.png" style="width:22px;height:auto;">
+    <span style="font-weight:bold;">シルバー</span>
+  </div>
+  <div style="font-size:11px; margin-top:2px;">90～179枚</div>
+</div>  
+
+<div style="text-align:center;padding:4px;line-height:1.2;">
+  <div style="display:flex; align-items:center; justify-content:center; gap:4px;">
+    <img src="gold.png" style="width:22px;height:auto;">
+    <span style="font-weight:bold;">ゴールド</span>
+  </div>
+  <div style="font-size:11px; margin-top:2px;">180枚～</div>
 </div>
-   
- 
+
+
   <div id="item-selector-grid"></div>
 </div>
 </div>
 　　　　　　　　　　　　　　　
     <!-- カラー変更機能 -->
     <div style="margin-bottom: 14px; text-align: left;">
-      <span class="setting-label" style="border-bottom: 2px solid #80DEEA; padding-bottom: 2px; margin-bottom: 8px;">🎨 模様替え・カラー（15日ごと）</span>
+      <span class="setting-label" style="border-bottom: 2px solid #80DEEA; padding-bottom: 2px; margin-bottom: 8px;">🎨 模様替え・カラー（15日ご）</span>
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;" id="theme-selector-grid"></div>
     </div>
     
@@ -628,19 +632,46 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
     </div>
 
     <!-- 月別・年別集計カード（スマホ幅が狭いと自動で縦並び） -->
-    <div style="font-size: 13px; font-weight: bold; margin: 18px 0 8px 0; color: #52443C;">【唱題集計】</div>
+    <div style="font-size: 13px; font-weight: bold; margin: 18px 0 8px 0; color: #52443C;">【唱題集計/メダル枚数】</div>
     <div class="history-summary-grid">
       <div class="history-summary-card">
         <span class="history-summary-label">今月</span>
         <span id="this-month-total" class="history-bold-num">0遍</span>
+ <span id="this-month-medal"
+        style="font-size:12px;
+               color:#FFC107;
+               font-weight:bold;
+               margin-top:4px;">
+    0枚  </span>
+
+
       </div>
       <div class="history-summary-card">
         <span class="history-summary-label">先月</span>
         <span id="last-month-total" class="history-bold-num">0遍</span>
+<span id="last-month-medal"
+        style="font-size:12px;
+               color:#FFC107;
+               font-weight:bold;
+               margin-top:4px;">
+   0枚
+  </span>
+
+
       </div>
       <div class="history-summary-card">
         <span class="history-summary-label">今年</span>
         <span id="this-year-total" class="history-bold-num">0遍</span>
+
+ <span id="this-year-medal"
+        style="font-size:12px;
+               color:#FFC107;
+               font-weight:bold;
+               margin-top:4px;">
+   0枚
+  </span>
+ 
+
       </div>
     </div>
 
@@ -1279,7 +1310,12 @@ function renderHistoryData() {
   const lastMonthYear = lastMonthDate.getFullYear();
   const lastMonth = lastMonthDate.getMonth();
 
-  for (const [dateStr, count] of Object.entries(historyData)) {
+let tokenHistory = JSON.parse(localStorage.getItem('tokenDailyHistory')) || {};
+ let thisMonthMedal = 0;
+let lastMonthMedal = 0;
+let thisYearMedal = 0;
+
+ for (const [dateStr, count] of Object.entries(historyData)) {
     const parts = dateStr.split('-');
     if (parts.length !== 3) continue;        
     const rYear = parseInt(parts[0], 10);
@@ -1294,7 +1330,29 @@ function renderHistoryData() {
     if (rYear === lastMonthYear && rMonth === lastMonth) {
       lastMonthTotal += count; // 先月
     }
+
   }
+for (const [dateStr, medal] of Object.entries(tokenHistory)) {
+
+    const parts = dateStr.split('-');
+    if (parts.length !== 3) continue;
+
+    const rYear = parseInt(parts[0], 10);
+    const rMonth = parseInt(parts[1], 10) - 1;
+
+    if (rYear === currentYear) {
+        thisYearMedal++;
+    }
+
+    if (rYear === currentYear && rMonth === currentMonth) {
+        thisMonthMedal++;
+    }
+
+    if (rYear === lastMonthYear && rMonth === lastMonth) {
+        lastMonthMedal++;
+    }
+
+}
 
   // ===== 画面（DOM）への反映 =====
   document.getElementById('this-week-list').innerHTML = thisWeekHtml;
@@ -1304,6 +1362,15 @@ function renderHistoryData() {
   document.getElementById('this-month-total').innerText = thisMonthTotal.toLocaleString() + "遍";
   document.getElementById('last-month-total').innerText = lastMonthTotal.toLocaleString() + "遍";
   document.getElementById('this-year-total').innerText = thisYearTotal.toLocaleString() + "遍";
+
+document.getElementById('this-month-medal').innerText =
+    thisMonthMedal + "枚";
+
+document.getElementById('last-month-medal').innerText =
+    lastMonthMedal + "枚";
+
+document.getElementById('this-year-medal').innerText =
+    thisYearMedal + "枚";
 }
 
 window.onload = init;
@@ -1330,6 +1397,25 @@ function getToken() {
   if (typeof updateUI === 'function') updateUI();
   
   alert("🏅トークンを1枚獲得しました！夢に向かって一歩前進だにゃ🐾");
+
+// ===== メダル履歴の保存 =====
+try {
+  const dNow = new Date();
+  const dYear = dNow.getFullYear();
+  const dMonth = String(dNow.getMonth() + 1).padStart(2, '0');
+  const dDay = String(dNow.getDate()).padStart(2, '0');
+  const dateKey = `${dYear}-${dMonth}-${dDay}`;
+
+  let tokenHistory = JSON.parse(localStorage.getItem('tokenDailyHistory')) || {};
+
+  tokenHistory[dateKey] = 1;
+
+  localStorage.setItem('tokenDailyHistory', JSON.stringify(tokenHistory));
+
+} catch(e) {
+  console.error("メダル履歴の保存に失敗しました:", e);
+}
+
 }
 
 // ===== デバッグ用 =====
