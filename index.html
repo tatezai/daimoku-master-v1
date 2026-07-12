@@ -305,7 +305,33 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
   .history-summary-label {
     margin-bottom: 0;
   }
+/* ===== CSV出力 ===== */
+
+.csv-title{
+    font-size:18px;
+    font-weight:bold;
+    text-align:center;
+    margin-top:-6px;
+    margin-bottom:12px;
 }
+.csv-button{
+    display:block;
+    width:180px;
+    height:46px;
+    margin:12px auto;
+    border:none;
+    border-radius:12px;
+    background:#FBC02D;
+    color:#5A3A00;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.csv-button:hover{
+    background:#FFD54F;
+}
+
 
   </style>
 </head>
@@ -504,7 +530,11 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
 <!-- 唱題回数の入力ダイアログ -->
 <div class="dialog-overlay" id="record-dialog">
   <div class="dialog">
-    <div style="font-size: 15px; font-weight: bold; margin-bottom: 8px;">唱題回数の入力</div>
+
+    <div style="font-size:15px;font-weight:bold;margin-bottom:8px;">
+      唱題回数の入力
+    </div>
+
     <div class="preset-buttons">
       <button class="preset-btn" onclick="setInputValue(500)">500</button>
       <button class="preset-btn" onclick="setInputValue(1000)">1000</button>
@@ -512,21 +542,83 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
       <button class="preset-btn" onclick="setInputValue(3000)">3000</button>
       <button class="preset-btn" onclick="setInputValue(5000)">5000</button>
       <button class="preset-btn" onclick="setInputValue(10000)">10000</button>
-　　　</div>
-    <input type="number" class="dialog-input" id="daimoku-input" placeholder="回数を入力" min="1">
-    
-    <div class="dialog-actions">
-      <button class="btn-flat" style="background:#E0E0E0;" onclick="closeDialog()">閉じる</button>
-      <button class="btn-flat" style="background:#A65D00; color:white;" onclick="submitRecord()"> 保存 </button>
     </div>
 
-    <button type="button" onclick="getToken()" style="display: block; width: 100%; padding: 14px; background: linear-gradient(135deg, #fbe34d 0%, #f9cb15 100%); color: #78350f; border: 2px solid #f59e0b; border-radius: 12px; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);">🏅 今日もがんばった</button>
+    <input
+      type="number"
+      class="dialog-input"
+      id="daimoku-input"
+      placeholder="回数を入力"
+      min="1">
 
-  </div>
-</div>    
+    <div class="dialog-actions">
+      <button class="btn-flat"
+              style="background:#E0E0E0;"
+              onclick="closeDialog()">
+        閉じる
+      </button>
+
+      <button class="btn-flat"
+              style="background:#A65D00;color:white;"
+              onclick="submitRecord()">
+        保存
+      </button>
+    </div>
+
+    <button
+      type="button"
+      onclick="getToken()"
+      style="display:block;width:100%;padding:14px;background:linear-gradient(135deg,#fbe34d 0%,#f9cb15 100%);color:#78350f;border:2px solid #f59e0b;border-radius:12px;font-size:18px;font-weight:bold;cursor:pointer;margin-top:15px;box-shadow:0 4px 12px rgba(245,158,11,.3);">
+      🏅 今日もがんばった
+    </button>
+
+    <hr style="margin:6px 0;border:none;border-top:1px dashed #CCC;">
+
+    <div class="csv-export-box">
+
+      <div class="csv-title">
+         データの出力
+      </div>
+<div class="csv-select-row">
+
+    <span class="csv-label">開始</span>
+    <select id="csv-start-year"></select>
+    <select id="csv-start-month"></select>
+
+    <span style="margin:0 8px;">～</span>
+
+    <span class="csv-label">終了</span>
+    <select id="csv-end-year"></select>
+    <select id="csv-end-month"></select>
 
 </div>
-    
+
+     
+
+<button
+onclick="exportCSV()"
+style="
+display:block;
+width:220px;
+height:50px;
+margin:12px auto;
+font-size:22px;
+background:#FBC02D;
+border:none;
+border-radius:12px;
+font-weight:bold;">
+ 出 力
+</button>
+      <div class="csv-note">
+        ※ 記録は表計算アプリで開けます。
+      </div>
+
+      
+    </div>
+
+  </div>
+</div>
+
 
 <!-- 設定＆マイページ画面 -->
 <div class="dialog-overlay" id="settings-dialog">
@@ -678,7 +770,9 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
     <div class="dialog-actions" style="margin-top: 16px;">
       <button class="btn-flat" style="background:#E0E0E0; width: 100%;" onclick="closeHistoryModal()">閉じる</button>
     </div>
-  </div>
+ 
+
+</div>
 </div>
 
 <!-- JavaScriptファイルを読み込む -->
@@ -1435,9 +1529,12 @@ function debugTrust(value) {
   state.trust = value;
   updateUI();
 }
+
+function exportCSV() {
+    alert("CSV出力はこれから作ります😊");
+}
 </script> 
 
 </body>
 </html>
-
 
