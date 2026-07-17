@@ -584,10 +584,10 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
     <span class="csv-label">開始</span>
     <select id="csv-start-year"></select>
     <select id="csv-start-month"></select>
+</div>
 
     <span style="margin:0 8px;">～</span>
-
-    <span class="csv-label">終了</span>
+<div class="csv-select-row">    <span class="csv-label">終了</span>
     <select id="csv-end-year"></select>
     <select id="csv-end-month"></select>
 
@@ -1489,7 +1489,7 @@ function getToken() {
   
   // 【仕様3】1日1回制限のチェック
   if (state.lastTokenDate === today) {
-    alert("今日はすでにトークンを受け取りました。");
+    alert("今日はすでにメダルを受け取りました。");
     return;
   }
   
@@ -1502,7 +1502,7 @@ function getToken() {
   if (typeof saveData === 'function') saveData();
   if (typeof updateUI === 'function') updateUI();
   
-  alert("🏅トークンを1枚獲得しました！夢に向かって一歩前進だにゃ🐾");
+  alert("🏅メダルを1枚獲得しました！夢に向かって一歩前進だにゃ🐾");
 
 // ===== メダル履歴の保存 =====
 try {
@@ -1531,10 +1531,155 @@ function debugTrust(value) {
 }
 
 function exportCSV() {
-    alert("CSV出力はこれから作ります😊");
+
+    const historyData =
+        JSON.parse(localStorage.getItem("daimokuDailyHistory")) || {};
+console.log(historyData);
+    const startYear =
+        parseInt(document.getElementById("csv-start-year").value);
+
+    const startMonth =
+        parseInt(document.getElementById("csv-start-month").value);
+
+    const endYear =
+        parseInt(document.getElementById("csv-end-year").value);
+
+    const endMonth =
+        parseInt(document.getElementById("csv-end-month").value);
+
+    // 開始日
+    let d = new Date(startYear, startMonth - 1, 1);
+
+    // 終了日（月末）
+    const endDate = new Date(endYear, endMonth, 0);
+
+    
+// CSV文字列
+let csv = "日付,唱題,月合計\n";
+
+// ★月合計
+let monthTotal = 0;
+
+// 現在集計中の年月
+let currentYear = d.getFullYear();
+let currentMonth = d.getMonth();
+
+    while (d <= endDate) {
+
+        const key =
+            `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+
+ console.log(key, historyData[key]);   // ←これを追加
+　　　　
+const count = historyData[key] || 0;
+
+// 月合計へ加算
+monthTotal += count;
+
+// 次の日を先に作る
+const nextDay = new Date(d);
+nextDay.setDate(nextDay.getDate() + 1);
+
+// 月末かどうか判定
+let monthText = "";
+
+if (
+    nextDay.getMonth() !== currentMonth ||
+    nextDay.getFullYear() !== currentYear
+) {
+    monthText = monthTotal;
+
+    // 次の月の準備
+    monthTotal = 0;
+    currentYear = nextDay.getFullYear();
+    currentMonth = nextDay.getMonth();
 }
+
+// CSVへ追加
+csv +=
+`${d.getFullYear()}/${d.getMonth()+1}/${d.getDate()},${count},${monthText}\n`;
+
+// 次の日へ
+d = nextDay;
+
+    }
+
+ // ===== CSVファイルをダウンロード =====
+
+    const sm = String(startMonth).padStart(2, "0");
+    const em = String(endMonth).padStart(2, "0");
+
+    let fileName;
+
+    if (startYear === endYear) {
+
+        if (startMonth === endMonth) {
+            fileName = `DM${startYear}.${sm}.csv`;
+        } else {
+            fileName = `DM${startYear}.${sm}-${em}.csv`;
+        }
+
+    } else {
+
+        fileName = `DM${startYear}.${sm}-${endYear}.${em}.csv`;
+
+    }
+
+    const blob = new Blob(
+        ["\uFEFF" + csv],
+        { type: "text/csv;charset=utf-8;" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    console.log(csv);
+
+    alert("CSV文字列を作成しました。\nF12 → Console を見てください。");
+
+}
+
+function initCSVSelect() {
+    const startYear = document.getElementById("csv-start-year");
+    const endYear = document.getElementById("csv-end-year");
+    const startMonth = document.getElementById("csv-start-month");
+    const endMonth = document.getElementById("csv-end-month");
+
+    const thisYear = new Date().getFullYear();
+
+    // 年
+    for (let y = 2024; y <= thisYear; y++) {
+        startYear.add(new Option(y + "年", y));
+        endYear.add(new Option(y + "年", y));
+    }
+
+    // 月
+    for (let m = 1; m <= 12; m++) {
+        startMonth.add(new Option(m + "月", m));
+        endMonth.add(new Option(m + "月", m));
+    }
+
+    // 初期値
+    startYear.value = thisYear;
+    endYear.value = thisYear;
+
+    const month = new Date().getMonth() + 1;
+    startMonth.value = month;
+    endMonth.value = month;
+}
+initCSVSelect();
 </script> 
 
 </body>
 </html>
+
 
