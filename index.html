@@ -637,8 +637,28 @@ font-weight:bold;">
     </div>
 
     <!-- コレクション確認エリア -->
-　　　　　　　　　　　　　　　　　　
+
+<!-- みるくのことば -->
+<div style="margin-bottom:16px; text-align:left;">
+
+  <span class="setting-label"
+        style="border-bottom:2px solid #F8BBD0; padding-bottom:2px;">
+    🐱 みるくのことば　　　🚧 開発中 (-_-;)
+  </span>
+
+  <div style="
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:8px;
+      padding:0 6px;">
+
+    <span style="font-weight:bold;">［編集する］</span>
+
     
+  </div>
+
+</div> 
 　　　　　　　　　　<!-- メダル説明エリア -->
 <div style="margin-bottom: 16px; text-align: left;">
   <span class="setting-label"
@@ -689,18 +709,31 @@ font-weight:bold;">
 　　　　　　　　　　　　　　　
     <!-- カラー変更機能 -->
     <div style="margin-bottom: 14px; text-align: left;">
-      <span class="setting-label" style="border-bottom: 2px solid #80DEEA; padding-bottom: 2px; margin-bottom: 8px;">🎨 模様替え・カラー（15日ご）</span>
+      <span class="setting-label" style="border-bottom: 2px solid #80DEEA; padding-bottom: 2px; margin-bottom: 8px;">🎨 模様替え・カラー（毎月一日）　🚧 開発中 (-_-;)　　</span>
       <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;" id="theme-selector-grid"></div>
     </div>
+
+<div class="dialog-actions">
+  <button class="btn-flat"
+          style="background:#A65D00;color:white;"
+          onclick="saveSettings()">
+      名前を保存
+  </button>
+
+  <button class="btn-flat"
+          style="background:#E0E0E0;"
+          onclick="closeSettings()">
+      閉じる
+  </button>
+</div>
+
+<div style="margin-top:15px;border-top:1px dashed #CCC;padding-top:10px;">
+  <button class="btn-reset"
+          onclick="resetData()">
+      記録をリセットする
+  </button>
+</div>
     
-    <div style="margin-top: 15px; border-top: 1px dashed #CCC; padding-top: 10px;">
-      <button class="btn-reset" style="margin-top:0; padding:8px; font-size:12px;" onclick="resetData()">記録をリセットする</button>
-    </div>
-    
-    <div class="dialog-actions">
-      <button class="btn-flat" style="background:#E0E0E0;" onclick="closeSettings()">閉じる</button>
-      <button class="btn-flat" style="background:#A65D00; color:white;" onclick="saveSettings()">名前を保存</button>
-    </div>
   </div>
 </div>
 
