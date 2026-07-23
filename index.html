@@ -466,7 +466,7 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
         <div class="status-item"><span class="status-label">本日唱題</span><div class="status-value large" id="today-text">0 遍</div></div>
         <div class="status-item">
           <span class="status-label">なかよし度 (<span id="trust-text">0%</span>)</span>
-          <span style="font-size: 9.5px; color: #795548; font-weight: 500; margin-top: 1px; line-height: 1.3;">お題目500遍ごとに3%アップ<br>お世話で1%アップ<br>毎日10%ダウン</span>
+          <span style="font-size: 9.5px; color: #795548; font-weight: 500; margin-top: 1px; line-height: 1.3;">お題目500遍ごとに2%アップ<br>お世話で2%アップ<br>毎日10%ダウン</span>
         </div>
 
  <div class="status-item">
@@ -1230,7 +1230,7 @@ function triggerAnim(className) {
       return;
     }
     state.strokeToday = true; // 今日なでたフラグをONにする
-    state.trust = Math.min(100, state.trust + 1);
+    state.trust = Math.min(100, state.trust + 2);
     updateUI();
     document.getElementById('dialogue-text').innerText = "ふにゃ〜ん！温かいにゃ〜。";
     triggerAnim('anim-purr');
@@ -1243,7 +1243,7 @@ function triggerAnim(className) {
       return;
     }
     state.playToday = true; // 今日遊んだフラグをONにする
-    state.trust = Math.min(100, state.trust + 1);
+    state.trust = Math.min(100, state.trust + 2);
     updateUI();
     document.getElementById('dialogue-text').innerText = "おもちゃ楽しいにゃ！トウッ！";
     triggerAnim('anim-jump');
@@ -1256,7 +1256,7 @@ function triggerAnim(className) {
       return;
     }
     state.snackToday = true; // 今日おやつをあげたフラグをONにする
-    state.trust = Math.min(100, state.trust + 1);
+    state.trust = Math.min(100, state.trust + 2);
     updateUI();
     document.getElementById('dialogue-text').innerText = "おやつ美味しいにゃ！モグモグ。";
     triggerAnim('anim-bounce');
@@ -1354,8 +1354,8 @@ function submitRecord() {
   }
   // ===============================================
 
-  let oldGains = Math.floor(oldToday / 500) * 3;
-  let newGains = Math.floor(state.today / 500) * 3;
+  let oldGains = Math.floor(oldToday / 500) * 2;
+  let newGains = Math.floor(state.today / 500) * 2;
   let diffGains = newGains - oldGains;
 
   if (diffGains > 0) {
