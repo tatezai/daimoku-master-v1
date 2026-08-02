@@ -1360,7 +1360,7 @@ function submitRecord() {
 
   if (diffGains > 0) {
     let currentGained = state.todayTrustGained || 0;
-    let allowedGain = Math.min(diffGains, 20 - currentGained);
+    let allowedGain = Math.min(diffGains, 10 - currentGained);
     if (allowedGain > 0) {
       state.trust = Math.min(100, (state.trust || 0) + allowedGain);
       state.todayTrustGained = currentGained + allowedGain;
@@ -1714,5 +1714,4 @@ initCSVSelect();
 
 </body>
 </html>
-
 
