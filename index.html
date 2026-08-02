@@ -888,14 +888,20 @@ if (state.token === undefined) state.token = 0;
 if (state.lastTokenDate === undefined) state.lastTokenDate = '';
 
 
-const today = new Date().toLocaleDateString();
+ const today = new Date().toLocaleDateString();
+
 if (state.lastDate !== today) {
-  state.trust = Math.max(30, state.trust - 10);
+
+  // 100%なら20%ダウン、それ以外は10%ダウン
+  const down = (state.trust >= 95) ? 20 : 10;
+
+  state.trust = Math.max(30, state.trust - down);
+
   state.todayTrustGained = 0;
   state.strokeToday = false;
   state.playToday = false;
-  state.snackToday = false;
-  
+  state.snackToday = false; 
+
   let y = new Date(); y.setDate(y.getDate() - 1);
   state.streak = (state.lastDate === y.toLocaleDateString()) ? (state.streak || 0) + 1 : 1;
   state.today = 0; 
@@ -1714,4 +1720,3 @@ initCSVSelect();
 
 </body>
 </html>
-
