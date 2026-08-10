@@ -544,6 +544,20 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
       <button class="preset-btn" onclick="setInputValue(10000)">10000</button>
     </div>
 
+<div style="display:flex; gap:8px; margin-bottom:8px;">
+  <button type="button"
+          class="preset-btn"
+          onclick="setInputMode('today')">
+    本日分入力
+  </button>
+
+  <button type="button"
+          class="preset-btn"
+          onclick="setInputMode('yesterday')">
+    昨日分入力
+  </button>
+</div>
+
     <input
       type="number"
       class="dialog-input"
@@ -557,12 +571,11 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
               onclick="closeDialog()">
         閉じる
       </button>
-
-      <button class="btn-flat"
-              style="background:#A65D00;color:white;"
-              onclick="submitRecord()">
-        保存
-      </button>
+<button class="btn-flat"
+        style="background:#A65D00;color:white;"
+        onclick= "submitSelectedRecord()">
+  保存
+</button>
     </div>
 
     <button
@@ -1336,12 +1349,76 @@ function resetData() {
   }
 }
 
-function submitRecord() {
-  const val = parseInt(document.getElementById('daimoku-input').value);
+// ===== 本日・昨日の入力切り替え =====
+let inputMode = 'today';
+
+function setInputMode(mode) {
+  inputMode = mode;
+
+  const input = document.getElementById('daimoku-input');
+
+  if (mode === 'today') {
+    input.placeholder = '本日分の回数を入力';
+  } else {
+    input.placeholder = '昨日分の回数を入力';
+  }
+}
+
+
+// ===== 本日・昨日の唱題を保存 =====
+function submitSelectedRecord() {
+
+  if (inputMode === 'today') {
+    submitRecord();
+    return;
+  }
+
+  // 昨日分の処理
+  const val = parseInt(
+    document.getElementById('daimoku-input').value
+  );
+
   if (isNaN(val) || val <= 0) return;
-  
-  let oldToday = state.today || 0;
-  state.today = oldToday + val;
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const yYear = yesterday.getFullYear();
+  const yMonth = String(yesterday.getMonth() + 1).padStart(2, '0');
+  const yDay = String(yesterday.getDate()).padStart(2, '0');
+
+  const dateKey = `${yYear}-${yMonth}-${yDay}`;
+
+  let historyData =
+    JSON.parse(localStorage.getItem('daimokuDailyHistory')) || {};
+
+  historyData[dateKey] =
+    (historyData[dateKey] || 0) + val;
+
+  localStorage.setItem(
+    'daimokuDailyHistory',
+    JSON.stringify(historyData)
+  );
+
+  state.total = (state.total || 0) + val;
+
+  saveData();
+  closeDialog();
+  updateUI();
+
+  document.getElementById('dialogue-text').innerText =
+    '昨日の唱題を記録したにゃ！🐾';
+}
+
+
+// ===== ここから今までの正常なコード =====
+function submitRecord() { 
+ 
+  const val = parseInt(document.getElementById('daimoku-input').value); 
+  if (isNaN(val) || val <= 0) return; 
+   
+  let oldToday = state.today || 0; 
+  state.today = oldToday + val; 
   state.total = (state.total || 0) + val;
 
   // ===== 【V19追加】日別データの保存ロジック =====
