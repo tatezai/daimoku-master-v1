@@ -558,12 +558,14 @@ header p { font-size: 11px; opacity: 0.9; margin-top: 2px; }
   </button>
 </div>
 
-    <input
-      type="number"
-      class="dialog-input"
-      id="daimoku-input"
-      placeholder="回数を入力"
-      min="1">
+<input
+  type="number"
+  class="dialog-input"
+  id="daimoku-input"
+  placeholder="回数を入力"
+  min="1"
+  style="font-size:16px;">
+   
 
     <div class="dialog-actions">
       <button class="btn-flat"
@@ -1400,11 +1402,11 @@ function submitSelectedRecord() {
     JSON.stringify(historyData)
   );
 
-  state.total = (state.total || 0) + val;
+state.total = (state.total || 0) + val;
 
-  saveData();
-  closeDialog();
-  updateUI();
+closeDialog();
+updateUI();
+  
 
   document.getElementById('dialogue-text').innerText =
     '昨日の唱題を記録したにゃ！🐾';
